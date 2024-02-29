@@ -1,0 +1,88 @@
+LIB = /usr/local/lib64/acctlib.a
+DEF = /usr/local/include
+DIR1 = /var/www/vhosts/acct/html
+DIR2 = /var/www/vhosts/shs_acct/html
+
+FILES = \
+	$(LIB)(AcctTypeDescr.o)		\
+	$(LIB)(AcctGetCookieAndSession.o)		\
+	$(LIB)(AcctMeta.o)		\
+	$(LIB)(AcctStyle.o)		\
+	$(LIB)(AddDoubleEntryTrx.o)		\
+	$(LIB)(CalcTrxBalance.o)	\
+	$(LIB)(CookieFuncs.o)		\
+	$(LIB)(Copyright.o)		\
+	$(LIB)(CurrentDateval.o)	\
+	$(LIB)(DeleteAccount.o)		\
+	$(LIB)(DeleteImport.o)		\
+	$(LIB)(ErrorSysLoaded.o)	\
+	$(LIB)(Fatal.o)				\
+	$(LIB)(InsertOneTrxd.o)		\
+	$(LIB)(LoadAccounts.o)		\
+	$(LIB)(LoadArinvh.o)		\
+	$(LIB)(LoadArinvhCB.o)		\
+	$(LIB)(LoadArinvl.o)		\
+	$(LIB)(LoadArinvlCB.o)		\
+	$(LIB)(LoadArcust.o)		\
+	$(LIB)(LoadArcustCB.o)		\
+	$(LIB)(LoadMember.o)	\
+	$(LIB)(LoadMemberCB.o)	\
+	$(LIB)(LoadOneAccount.o)	\
+	$(LIB)(LoadOneImport.o)		\
+	$(LIB)(LoadOneRpt.o)		\
+	$(LIB)(LoadOneTrxd.o)		\
+	$(LIB)(LoadOneTrxh.o)		\
+	$(LIB)(LoadSystem.o)		\
+	$(LIB)(LoadUser.o)			\
+	$(LIB)(NextTrxNum.o)	\
+	$(LIB)(ReportUp.o)			\
+	$(LIB)(safe_convert.o)		\
+	$(LIB)(SaveError.o)			\
+	$(LIB)(SessionFuncs.o)			\
+	$(LIB)(StartDb.o)		\
+	$(LIB)(StartUp.o)			\
+	$(LIB)(StatusDescr.o)		\
+	$(LIB)(StringToDateval.o)	\
+	$(LIB)(TimeFrameDates.o)	\
+	$(LIB)(TimeFrameDescr.o)	\
+	$(LIB)(WebFatal.o)
+
+.SILENT:
+
+$(LIB): $(FILES)
+	make include
+	make js
+	make css
+
+$(FILES): acctlib.h acctprivate.h fileacct.h
+
+include:
+	cp -pv acctlib.h $(DEF)/acctlib.h
+	cp -pv fileacct.h $(DEF)/fileacct.h
+
+js:
+	cp -pv acctlib.js $(DIR1)/acctlib.js
+	cp -pv acctlib.js $(DIR2)/acctlib.js
+
+css:
+	cp -pv acct.css $(DIR1)/acct.css
+	cp -pv acct.css $(DIR2)/acct.css
+	
+strip:
+	ls -l $(LIB)
+	strip --strip-unneeded $(LIB)
+	ls -l $(LIB)
+
+clean:
+	rm -f $(LIB)
+	rm -f $(DIR1)/acctlib.js
+	rm -f $(DIR2)/acctlib.js
+	rm -f $(DIR1)/acct.css
+	rm -f $(DIR2)/acct.css
+
+all:
+	make clean
+	make
+
+.PRECIOUS: $(LIB)
+
