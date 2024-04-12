@@ -47,7 +47,7 @@ void SendTwoFactor ()
 	CARRIER_RECORD	*ptrCarrier;
 	long	Timestamp;
 
-	seed_random_with_usec ();
+	shs_seed_random ();
 
 	SixDigits = random_range ( 123456, 987654 );
 
