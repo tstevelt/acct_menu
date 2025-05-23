@@ -174,7 +174,33 @@ void PaintMenu ( int MenuNumber )
 				if (( cp = nsStrstr ( ActionBuffer, "{DB}" )) != NULL )
 				{
 					*cp = '\0';
+#ifdef UNIX
 					nsStrcat ( ActionBuffer, SessionRecord.DbName );
+#else
+					char	*DbName;
+
+					if (( cp = getenv ( "REQUEST_URI" )) == NULL )
+					{
+						SaveError ( "Cannot find REQUEST_URI" );
+						return;
+					}
+
+					if ( strstr ( cp, "shs" ) != NULL )
+					{
+						DbName = "shs";
+					}
+					else if ( strstr ( cp, "acct" ) != NULL )
+					{
+						DbName = "acct";
+					}
+					else
+					{
+						SaveError ( "Unknown db in REQUEST_URI" );
+						return;
+					}
+
+					nsStrcat ( ActionBuffer, DbName );
+#endif
 				}
 				
 				if ( nsStrlen ( MenuArray[MenuNdx].Target ) > 0 )

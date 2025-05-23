@@ -1,10 +1,6 @@
 #/bin/sh
 
-#
-#	acct.stevel.com
-#
-
-WWWDIR=/var/www/vhosts/acct/html
+WWWDIR=/Users/tms/Sites/acct
 if [ ! -d $WWWDIR/images ]
 then
 	mkdir $WWWDIR/images
@@ -16,11 +12,7 @@ do
 done
 cp -pv ShowImages.html $WWWDIR
 
-#
-#	acct.silverhammersoftware.com
-#
-
-WWWDIR=/var/www/vhosts/shs_acct/html
+WWWDIR=/Users/tms/Sites/shs
 if [ ! -d $WWWDIR/images ]
 then
 	mkdir $WWWDIR/images

@@ -45,12 +45,23 @@ void PaintTop ( char *Title, int RunMode, int UserLoggedIn, int WriteMeta, char 
 	ImageOffset = IMAGES_PHOTO;
 	ImageIndex = tm->tm_mon;
 
+#ifdef UNIX
 	http_host = getenv ( "HTTP_HOST" );
 	if ( nsStrstr ( http_host, "silverhammersoftware" ) != NULL )
 	{
 		ImageOffset = IMAGES_DARKEN;
 		ImageIndex += IMAGES_DARKEN;
 	}
+#endif
+#define LOCALHOST
+#ifdef LOCALHOST
+	http_host = getenv ( "SCRIPT_FILENAME" );
+	if ( nsStrstr ( http_host, "shs" ) != NULL )
+	{
+		ImageOffset = IMAGES_DARKEN;
+		ImageIndex += IMAGES_DARKEN;
+	}
+#endif
 
 	ptrWebParms = webInitParms ();
 

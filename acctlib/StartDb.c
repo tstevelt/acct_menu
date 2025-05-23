@@ -33,11 +33,13 @@ int StartDb ( char *DbName )
 			int		rv;
 		   WEBPARMS    *ptrWebParms;
 
-	rv = dbyConnect ( &MySql, DbName, "tms", CheckStatus, stderr );
+//	rv = dbyConnect ( &MySql, DbName, "tms", CheckStatus, stderr );
+	rv = dbyConnect ( &MySql, DbName, "tms", CheckStatus, stdout );
 
 	if ( DebugStartDb )
 	{
-		fprintf ( stderr, "StartDb: dbyConnect returned %d\n", rv );
+		printf ( "StartDb: dbyConnect returned %d<br>\n", rv );
+		printf ( "StartDb: DbName %s, User %s, CheckStatus %d<br>\n", DbName, "tms", CheckStatus );
 	}
 
 	if ( rv != DBY_CONN_SUCCESS )
@@ -47,6 +49,7 @@ int StartDb ( char *DbName )
 		ptrWebParms->WP_Title = "Connect Error";
 		webStartHead ( ptrWebParms );
 
+		printf ( "%s<br>\n", mysql_error(&MySql) );
 		printf ( "%s<br>\n", dbyConnectErrorStr(rv) );
 		
 		webEndPage ();

@@ -34,7 +34,7 @@
 #include   <mysql.h>
 #include   <errmsg.h>
 #else
-#include	<crypt.h>
+// #include	<crypt.h>
 #include   <mysql/mysql.h>
 #include   <mysql/errmsg.h>
 #endif
